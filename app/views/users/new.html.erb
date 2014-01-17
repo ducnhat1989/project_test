@@ -1,0 +1,62 @@
+<h1 class="offset1 pull-left">Create User</h1>
+
+<div class="row">
+    <div class="span6 offset1">
+      <%= form_for [@user] do |f| %>
+      <%#= render 'shared/error_messages', object: f.object %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+        
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+        
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+  
+      <%= f.label :password_confirmation, "Password Confirmation" %>
+      <%= f.password_field :password_confirmation %>
+
+      <%= f.label "Skills-------------------"%>
+
+      <ul class="unstyled" id="group_skills">
+      <% @groups.each do |group|%>
+      <li>
+        <%=check_box_tag(group.name, value = group.id)%>  <%=group.name%>
+        <ul class="_unstyled">
+          <%= f.fields_for :user_skills do |builder| %>
+            <%=render "skill_form", build: builder, group_id: group.id %>
+          <% end %>
+        </ul>
+      </li>
+      <% end%>
+    </ul>
+      <%= f.submit "Create User",class: "btn btn-large btn-primary" %>
+      <% end %>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+  $("ul#group_skills > li > input[type=checkbox]").click(function(){
+    g_id = $(this).val();
+    //alert(g_id);
+    if($(this).is(':checked')){
+      var skills_block = $(this).parent().find("ul");
+      //skills_block.html(data);
+      var request = $.ajax({
+        url: "http://localhost:3000/groups/"+g_id,
+        type: "GET",
+        dateType: "html",
+      });
+      request.done(function(data){
+        skills_block.html(data);
+      });
+      request.fail(function(jqXHR, textStatus){
+        skills_block.html("Connected: " + textStatus);
+      });
+    }
+    else{
+      $(this).parent().find("ul").html("");
+    }    
+  })
+})
+</script>

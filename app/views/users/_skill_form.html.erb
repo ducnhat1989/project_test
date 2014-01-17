@@ -1,0 +1,6 @@
+<% if group_id == build.object.skill.group.id%>
+<li>
+	<%= build.check_box :skill_id, {checked: false}, 
+	build.object.skill_id, nil%><%=build.object.skill.name%>
+</li>
+<% end %>

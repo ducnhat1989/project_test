@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   has_many :user_skills
 
+  accepts_nested_attributes_for :user_skills
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
