@@ -38,28 +38,29 @@
     </div>
 </div>
 <script>
-// $(document).ready(function(){
-//   $("ul#group_skills > li > input[type=checkbox]").click(function(){
-//     g_id = $(this).val();
-//     //alert(g_id);
-//     if($(this).is(':checked')){
-//       var skills_block = $(this).parent().find("ul");
-//       //skills_block.html(data);
-//       var request = $.ajax({
-//         url: "http://localhost:3000/groups/"+g_id,
-//         type: "GET",
-//         dateType: "html",
-//       });
-//       request.done(function(data){
-//         skills_block.html(data);
-//       });
-//       request.fail(function(jqXHR, textStatus){
-//         skills_block.html("Connected: " + textStatus);
-//       });
-//     }
-//     else{
-//       $(this).parent().find("ul").html("");
-//     }    
-//   })
-// })
+$(document).ready(function(){
+  $("ul#group_skills > li > input[type=checkbox]").click(function(){
+    g_id = $(this).val();
+    //alert(g_id);
+    if($(this).is(':checked')){
+      $(this).parent().find("input[type=checkbox]").attr("checked", "true")
+      var skills_block = $(this).parent().find("ul");
+      //skills_block.html(data);
+      // var request = $.ajax({
+      //   url: "new",
+      //   type: "GET",
+      //   dateType: "html",
+      // });
+      // request.done(function(data){
+      //   skills_block.html(data);
+      // });
+      // request.fail(function(jqXHR, textStatus){
+      //   skills_block.html("Connected: " + textStatus);
+      // });
+    }
+    else{
+      //$(this).parent().find("ul").html("");
+    }    
+  })
+})
 </script>
