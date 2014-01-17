@@ -5,7 +5,10 @@ ProjectTests::Application.routes.draw do
   match '/signout', to: 'sessions#destroy',     via: 'delete'
   match '/signin',  to: 'sessions#new',         via: 'get'
 
-  resources :users
+  resources :users do
+    resources :skills
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

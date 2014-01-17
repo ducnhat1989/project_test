@@ -1,0 +1,18 @@
+<% provide(:title, "Show all skill of user") %>
+<h2>Show all skill of <%=@user.name%></h2>
+<table class="table">
+	<thear>
+		<tr>
+			<th>STT</th>
+			<th>Skill group</th>
+			<th>Skill name</th>
+		</tr>
+	<tbody>
+		<% if @user_skills.any? %>
+		<%= render partial: "user_skill", collection: @user_skills %>
+		<% end %>
+	</tbody>
+	<tfoot>
+		<%= will_paginate @user_skills%>
+	</tfoot>
+</table>
