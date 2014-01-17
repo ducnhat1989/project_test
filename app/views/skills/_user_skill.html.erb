@@ -1,4 +1,9 @@
 <tr>
 	<td><%= user_skill.id %></td>
 	<td><%= user_skill.skill.name%>
+	<td>
+		<% user_skill.skill.skill_details.each do |skill_detail|%>
+		<%=skill_detail.name << "-----"%>
+		<% end%>
+	</td>
 </tr>

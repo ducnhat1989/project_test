@@ -6,13 +6,19 @@ class UsersController < ApplicationController
 	end
 
 	def new
-		@user = User.new
-		Skill.all.each do |sk|
-			@user_skill = @user.user_skills.build(skill_id: sk.id)
-			sk.skill_details.each do |sk_detail|
-				@user_skill.user_skill_details.build(skill_detail_id: sk_detail.id)
+		# if 1 == params[:checked]
+		# 	@user = User.new name: params[:username], email: params[:email],
+		# 										password: params[:password] 
+
+		# else
+			@user = User.new
+			Skill.all.each do |sk|
+				@user_skill = @user.user_skills.build(skill_id: sk.id)
+				sk.skill_details.each do |sk_detail|
+					@user_skill.user_skill_details.build(skill_detail_id: sk_detail.id)
+				end
 			end
-		end
+		# end
 	end
 
 	def create
@@ -22,9 +28,8 @@ class UsersController < ApplicationController
 			redirect_to users_path
 		else
 			@user = User.new
-			@groups = Group.all
 			flash.now[:error_messages] = "Fail to created user."
-			render 'new'
+			redirect_to users_path
 		end
 	end
 

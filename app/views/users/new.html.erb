@@ -43,22 +43,29 @@ $(document).ready(function(){
     g_id = $(this).val();
     //alert(g_id);
     if($(this).is(':checked')){
-      $(this).parent().find("input[type=checkbox]").attr("checked", "true")
       var skills_block = $(this).parent().find("ul");
       //skills_block.html(data);
       // var request = $.ajax({
       //   url: "new",
       //   type: "GET",
+      //   data: {
+      //     checked: 1,
+      //     username: $('#username').val(),
+      //     email: $('#email').val(),
+      //     password: $('#password').val()
+      //   },
       //   dateType: "html",
       // });
       // request.done(function(data){
-      //   skills_block.html(data);
+      //   $('#new_user').html(data);
       // });
       // request.fail(function(jqXHR, textStatus){
       //   skills_block.html("Connected: " + textStatus);
       // });
+      $(this).parent().find("input[type=checkbox]").attr("checked", true)
     }
     else{
+      $(this).parent().find("input[type=checkbox]").attr("checked", false)
       //$(this).parent().find("ul").html("");
     }    
   })
