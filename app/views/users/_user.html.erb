@@ -1,0 +1,12 @@
+<tr>
+	<td><%= user.id %></td>
+	<td><%= link_to user.email, user %>
+	<td><%= link_to user.name, user %>
+	</td>
+	<td><%= user.created_at%></td>
+	<td><%= link_to "Reset password", edit_user_path(user),
+	                              class: "btn btn-small btn-primary" %></td>
+	<td><%= link_to "Delete", user, method: :delete,
+                                  data: { confirm: "You sure?" },
+                                  class: "btn btn-small btn-primary"%>
+</tr>

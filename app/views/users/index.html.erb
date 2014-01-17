@@ -1,0 +1,23 @@
+<% provide(:title, "Show all users") %>
+<h2>Show all users</h2>
+<h3> <%= link_to "New user", new_user_path,
+class: "btn btn-medium btn-primary" %> </h3>
+<table class="table">
+	<thear>
+		<tr>
+			<th>STT</th>
+			<th>Email</th>
+			<th>Username</th>
+			<th>Create date</th>
+			<th>Reset password</th>
+			<th>Delete</th>
+		</tr>
+	<tbody>
+		<% if @users.any? %>
+		<%= render @users %>
+		<% end %>
+	</tbody>
+	<tfoot>
+		<%= will_paginate %>
+	</tfoot>
+</table>
