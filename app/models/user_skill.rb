@@ -1,4 +1,5 @@
 class UserSkill < ActiveRecord::Base
 	belongs_to :skill
-	belongs_to :user_group
+	has_many :user_skill_details
+	accepts_nested_attributes_for :user_skill_details
 end

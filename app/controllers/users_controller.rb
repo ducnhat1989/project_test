@@ -7,9 +7,11 @@ class UsersController < ApplicationController
 
 	def new
 		@user = User.new
-		@groups = Group.all
 		Skill.all.each do |sk|
-				@user.user_skills.build(skill_id: sk.id)
+			@user_skill = @user.user_skills.build(skill_id: sk.id)
+			sk.skill_details.each do |sk_detail|
+				@user_skill.user_skill_details.build(skill_detail_id: sk_detail.id)
+			end
 		end
 	end
 
@@ -28,6 +30,8 @@ class UsersController < ApplicationController
 
 	private
     def user_params
-	    params.require(:user).permit :name, :email, :password, :password_confirmation, user_skills_attributes: [:skill_id]
+	    params.require(:user).permit :name, :email, :password, :password_confirmation, 
+	      user_skills_attributes: [:skill_id, 
+	    		user_skill_details_attributes: [:skill_detail_id]]
 	  end
 end

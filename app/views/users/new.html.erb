@@ -19,15 +19,18 @@
       <%= f.label "Skills-------------------"%>
 
       <ul class="unstyled" id="group_skills">
-      <% @groups.each do |group|%>
-      <li>
-        <%=check_box_tag(group.name, value = group.id)%>  <%=group.name%>
-        <ul class="_unstyled">
-          <%= f.fields_for :user_skills do |builder| %>
-            <%=render "skill_form", build: builder, group_id: group.id %>
-          <% end %>
-        </ul>
-      </li>
+      <%= f.fields_for :user_skills do |builder_sk|%>
+        <li>
+          <%=builder_sk.check_box :skill_id, {checked: false}, 
+                builder_sk.object.skill.id%>  
+          <%=builder_sk.object.skill.name%>
+          <ul>
+            <%= builder_sk.fields_for :user_skill_details do |builder_sk_de|%>
+              <%=render "skill_detail_form", 
+                  build: builder_sk_de%>
+            <% end%>
+          </ul>
+        <li>
       <% end%>
     </ul>
       <%= f.submit "Create User",class: "btn btn-large btn-primary" %>
@@ -35,28 +38,28 @@
     </div>
 </div>
 <script>
-$(document).ready(function(){
-  $("ul#group_skills > li > input[type=checkbox]").click(function(){
-    g_id = $(this).val();
-    //alert(g_id);
-    if($(this).is(':checked')){
-      var skills_block = $(this).parent().find("ul");
-      //skills_block.html(data);
-      var request = $.ajax({
-        url: "http://localhost:3000/groups/"+g_id,
-        type: "GET",
-        dateType: "html",
-      });
-      request.done(function(data){
-        skills_block.html(data);
-      });
-      request.fail(function(jqXHR, textStatus){
-        skills_block.html("Connected: " + textStatus);
-      });
-    }
-    else{
-      $(this).parent().find("ul").html("");
-    }    
-  })
-})
+// $(document).ready(function(){
+//   $("ul#group_skills > li > input[type=checkbox]").click(function(){
+//     g_id = $(this).val();
+//     //alert(g_id);
+//     if($(this).is(':checked')){
+//       var skills_block = $(this).parent().find("ul");
+//       //skills_block.html(data);
+//       var request = $.ajax({
+//         url: "http://localhost:3000/groups/"+g_id,
+//         type: "GET",
+//         dateType: "html",
+//       });
+//       request.done(function(data){
+//         skills_block.html(data);
+//       });
+//       request.fail(function(jqXHR, textStatus){
+//         skills_block.html("Connected: " + textStatus);
+//       });
+//     }
+//     else{
+//       $(this).parent().find("ul").html("");
+//     }    
+//   })
+// })
 </script>

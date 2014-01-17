@@ -1,3 +1,4 @@
 class Skill < ActiveRecord::Base
-	belongs_to :group
+	has_many :skill_details
+	has_many :user_skills
 end

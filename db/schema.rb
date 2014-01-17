@@ -13,22 +13,30 @@
 
 ActiveRecord::Schema.define(version: 20140117025450) do
 
-  create_table "groups", force: true do |t|
+  create_table "skill_details", force: true do |t|
     t.string   "name"
+    t.integer  "skill_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "skills", force: true do |t|
     t.string   "name"
-    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_skill_details", force: true do |t|
+    t.integer  "user_skill_id"
+    t.integer  "skill_detail_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "user_skills", force: true do |t|
-    t.integer  "user_id"
     t.integer  "skill_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

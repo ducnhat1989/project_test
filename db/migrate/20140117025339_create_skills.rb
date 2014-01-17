@@ -1,8 +1,8 @@
 class CreateSkills < ActiveRecord::Migration
   def change
-    create_table :skills do |t|
+    create_table :skill_details do |t|
       t.string :name
-      t.integer :group_id
+      t.integer :skill_id
 
       t.timestamps
     end
