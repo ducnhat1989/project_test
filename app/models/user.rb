@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :user_skill_details
 
   accepts_nested_attributes_for :user_skills, 
-    reject_if: lambda { params[:skill_id].nil? }, allow_destroy: true
+    reject_if: lambda {|params| params[:skill_id].nil? }, allow_destroy: true
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64

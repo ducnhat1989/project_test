@@ -18,9 +18,9 @@
 <%= f.fields_for :user_skills do |builder_sk|%>
   <li>
     <%=builder_sk.check_box :skill_id, {checked: false}, 
-          builder_sk.object.skill.id%>  
+          builder_sk.object.skill.id, nil%>  
     <%=builder_sk.object.skill.name%>
-    <ul>
+    <ul id="skill_details_<%=builder_sk.object.skill.id%>">
       <%= builder_sk.fields_for :user_skill_details do |builder_sk_de|%>
         <%=render "skill_detail_form", 
             build: builder_sk_de%>
@@ -44,14 +44,12 @@ $(document).ready(function(){
         data: {
           checked: 1,
           g_id_check: g_id,
-          username: $('#user_name').val(),
-          email: $('#user_email').val(),
-          password: $('#user_password').val()
         },
         dateType: "html",
       });
       request.done(function(data){
-        $('#user_formsss').html(data);
+        skill_detail_form = $(data).find("ul#skill_details_"+g_id).html();
+        skills_block.html(skill_detail_form);
         $(this).parent().find("input[type=checkbox]").attr("checked", true)
       });
       request.fail(function(jqXHR, textStatus){
@@ -60,8 +58,8 @@ $(document).ready(function(){
       $(this).parent().find("input[type=checkbox]").attr("checked", true)
     }
     else{
-      //$(this).parent().find("input[type=checkbox]").attr("checked", false)
-      //$(this).parent().find("ul").html("");
+      $(this).parent().find("input[type=checkbox]").attr("checked", false)
+      $(this).parent().find("ul").html("");
     }    
   })
 })

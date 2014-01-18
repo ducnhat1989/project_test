@@ -1,0 +1,15 @@
+<%= form_for [@user] do |f| %>
+	<%= f.fields_for :user_skills do |builder_sk|%>
+	  <li>
+	    <%=builder_sk.check_box :skill_id, {checked: false}, 
+	          builder_sk.object.skill.id, nil%>  
+	    <%=builder_sk.object.skill.name%>
+	    <ul id="skill_details_<%=builder_sk.object.skill.id%>">
+	      <%= builder_sk.fields_for :user_skill_details do |builder_sk_de|%>
+	        <%=render "skill_detail_form", 
+	            build: builder_sk_de%>
+	      <% end%>
+	    </ul>
+	  <li>
+	<% end%>
+<% end %>
