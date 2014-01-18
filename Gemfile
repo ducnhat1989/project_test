@@ -8,6 +8,7 @@ gem 'bootstrap-will_paginate', '0.0.9'
 
 # Use sqlite3 as the database for Active Record
 gem 'mysql2'
+gem 'pry-debugger'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

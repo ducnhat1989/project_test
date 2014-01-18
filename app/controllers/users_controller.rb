@@ -6,19 +6,42 @@ class UsersController < ApplicationController
 	end
 
 	def new
-		# if 1 == params[:checked]
-		# 	@user = User.new name: params[:username], email: params[:email],
-		# 										password: params[:password] 
+		if params[:g_id_check].present?
+			@user = User.new name: params[:username], email: params[:email],
+												password: params[:password] 
+			#@skill_check = Skill.find params[:g_id_check]
+			if session[:list_skills].include? params[:g_id_check]
+				session[:list_skills].delete params[:g_id_check]
+			else
+				session[:list_skills] << params[:g_id_check].to_i
+			end
+			logger.info "1111//////////////////////////////////////////////"
+			logger.info session[:list_skills].to_s
+			Skill.all.each do |sk|
+				@user_skill = @user.user_skills.build(skill_id: sk.id) 
+				logger.info "3333//////////////////////////////////////////////"
+						logger.info sk.id
+				if session[:list_skills].include? sk.id
+					logger.info "2222//////////////////////////////////////////////"
+						logger.info session[:list_skills].to_s
 
-		# else
+					sk.skill_details.each do |sk_detail|
+						@user_skill.user_skill_details.build(
+							skill_detail_id: sk_detail.id)
+					end
+				end
+			end
+			render partial: "users/skill_form"
+		else
+			session[:list_skills] = Array.new
 			@user = User.new
 			Skill.all.each do |sk|
 				@user_skill = @user.user_skills.build(skill_id: sk.id)
-				sk.skill_details.each do |sk_detail|
-					@user_skill.user_skill_details.build(skill_detail_id: sk_detail.id)
-				end
+				# sk.skill_details.each do |sk_detail|
+				# 	@user_skill.user_skill_details.build(skill_detail_id: sk_detail.id)
+				# end
 			end
-		# end
+		end
 	end
 
 	def create

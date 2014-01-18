@@ -1,0 +1,68 @@
+<%= form_for [@user] do |f| %>
+<%#= render 'shared/error_messages', object: f.object %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+  
+<%= f.label :email %>
+<%= f.text_field :email %>
+  
+<%= f.label :password %>
+<%= f.password_field :password %>
+
+<%= f.label :password_confirmation, "Password Confirmation" %>
+<%= f.password_field :password_confirmation %>
+
+<%= f.label "Skills-------------------"%>
+
+<ul class="unstyled" id="group_skills">
+<%= f.fields_for :user_skills do |builder_sk|%>
+  <li>
+    <%=builder_sk.check_box :skill_id, {checked: false}, 
+          builder_sk.object.skill.id%>  
+    <%=builder_sk.object.skill.name%>
+    <ul>
+      <%= builder_sk.fields_for :user_skill_details do |builder_sk_de|%>
+        <%=render "skill_detail_form", 
+            build: builder_sk_de%>
+      <% end%>
+    </ul>
+  <li>
+<% end%>
+</ul>
+<%= f.submit "Create User",class: "btn btn-large btn-primary" %>
+<% end %>
+<script>
+$(document).ready(function(){
+  $("ul#group_skills > li > input[type=checkbox]").click(function(){
+    var g_id = $(this).val();
+    
+    if($(this).is(':checked')){
+      var skills_block = $(this).parent().find("ul");
+      var request = $.ajax({
+        url: "new",
+        type: "GET",
+        data: {
+          checked: 1,
+          g_id_check: g_id,
+          username: $('#user_name').val(),
+          email: $('#user_email').val(),
+          password: $('#user_password').val()
+        },
+        dateType: "html",
+      });
+      request.done(function(data){
+        $('#user_formsss').html(data);
+        $(this).parent().find("input[type=checkbox]").attr("checked", true)
+      });
+      request.fail(function(jqXHR, textStatus){
+        skills_block.html("Connected: " + textStatus);
+      });
+      $(this).parent().find("input[type=checkbox]").attr("checked", true)
+    }
+    else{
+      //$(this).parent().find("input[type=checkbox]").attr("checked", false)
+      //$(this).parent().find("ul").html("");
+    }    
+  })
+})
+</script>
